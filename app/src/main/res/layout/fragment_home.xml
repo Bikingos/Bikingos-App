@@ -1,15 +1,47 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    xmlns:util="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity$PlaceholderFragment">
 
     <com.mapbox.mapboxsdk.views.MapView
         android:id="@+id/game_map"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        mapbox:mapid="@string/map_id"
-        mapbox:accessToken="@string/mapbox_key"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        util:mapid="@string/map_id"
+        util:accessToken="@string/mapbox_key"/>
 
-</FrameLayout>
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            util:fab_colorNormal="@color/white"
+            util:fab_title="Label on the right" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_medals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            util:fab_colorNormal="@color/white"
+            util:fab_title="Another one on the right"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
+</RelativeLayout>
