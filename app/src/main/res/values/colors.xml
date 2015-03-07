@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary_transparente">#00000000</color>
+    <color name="background">#212121</color>
+    <color name="primary_black_dark">#000000</color>
+    <color name="accent_red">#D50000</color>
+    <color name="accent_green">#2E7D32</color>
+    <color name="accent_green_press">#1B5E20</color>
+    <color name="rippleBackground">#585858</color>
+    <color name="color_facebook">#3b5998</color>
+    <color name="color_facebok_press">#ff334178</color>
+    <color name="text_primary_white">#DEffffff</color>
+    <color name="disable_black">#42000000</color>
+    <color name="background_card">#424242</color>
+    <color name="white">#ffffff</color>
+
+</resources>
