@@ -43,6 +43,7 @@ dependencies {
     compile 'com.balysv:material-ripple:1.0.1'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.akexorcist:RoundCornerProgressBar:1.0.0'
+    compile 'com.mcxiaoke.volley:library:1.0.+'
     compile('com.crashlytics.sdk.android:crashlytics:2.2.2@aar') {
         transitive = true;
     }
