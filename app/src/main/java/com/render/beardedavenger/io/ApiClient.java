@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -33,6 +34,16 @@ public class ApiClient {
         return Ion.with(context)
                 .load(url)
                 .asJsonArray()
+                .setCallback(futureCallback);
+    }
+
+
+
+    public static Future requestWebGetObjetJson(Context context, String url, FutureCallback<JsonObject> futureCallback) {
+
+        return Ion.with(context)
+                .load(url)
+                .asJsonObject()
                 .setCallback(futureCallback);
     }
 

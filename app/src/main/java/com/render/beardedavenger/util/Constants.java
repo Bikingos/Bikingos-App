@@ -39,5 +39,9 @@ public class Constants {
     public static final String URL_PERFIL = "http://188.166.7.238:8888/v1/users/bob/medals";
 
 
+    public static final String URL_LONGIN = "http://188.166.7.238:8888/v1/users/bob";
+    public static final String USER_LEVEL = "level";
+    public static final String USER_EXPERENCE = "experience";
+    public static final String USER_MAX_EXPERENCE = "max_experence";
     public static final String SPECIAL_BASE = "special";
 }

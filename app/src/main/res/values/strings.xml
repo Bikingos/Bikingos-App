@@ -22,6 +22,7 @@
     <string name="request_update_failed">Ocurrió un error en la actualización</string>
     <string name="post_route">Marcando territorio…</string>
     <string name="bases_request">Obteniendo bases…</string>
+    <string name="text_loading_user">Iniciando Sesión</string>>
     <string name="time_label">Tiempo Transcurrido</string>
     <string name="distance_label">Distancia Recorrida</string>
 

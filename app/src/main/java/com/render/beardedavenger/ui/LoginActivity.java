@@ -1,5 +1,6 @@
 package com.render.beardedavenger.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,7 +17,11 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.Future;
+import com.koushikdutta.async.future.FutureCallback;
 import com.render.beardedavenger.R;
+import com.render.beardedavenger.io.ApiClient;
 import com.render.beardedavenger.util.Constants;
 
 import java.util.Arrays;
@@ -24,6 +29,8 @@ import java.util.Arrays;
 import io.fabric.sdk.android.Fabric;
 
 public class LoginActivity extends ActionBarActivity implements LoginButton.OnErrorListener, Session.StatusCallback, View.OnClickListener {
+
+    private Future futureFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +66,7 @@ public class LoginActivity extends ActionBarActivity implements LoginButton.OnEr
                                 editor.putString(Constants.USER_NAME, user.getName());
                                 editor.putString(Constants.USER_EMAIL, user.getProperty("email").toString());
                                 editor.apply();
-
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                startActivity(intent);
-
+                                obtainInfoUser();
                             } else {
                                 Log.d("Error", "1");
                                 Toast.makeText(LoginActivity.this, R.string.message_error, Toast.LENGTH_SHORT).show();
@@ -73,6 +77,45 @@ public class LoginActivity extends ActionBarActivity implements LoginButton.OnEr
         }
 
 
+    }
+
+
+    private void obtainInfoUser()
+    {
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setTitle(getString(R.string.app_name));
+        progressDialog.setMessage(getString(R.string.text_loading_user));
+        progressDialog.show();
+
+        futureFriends = ApiClient.requestWebGetObjetJson(LoginActivity.this, Constants.URL_LONGIN, new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                if (result != null) {
+
+
+                    JsonObject jsonObject = result.get("data").getAsJsonObject();
+
+                    SharedPreferences.Editor editor = getSharedPreferences(Constants.PREFERENCE_USER, MODE_PRIVATE).edit();
+                    editor.putString(Constants.USER_NAME, jsonObject.get("username").getAsString());
+                    editor.putInt(Constants.USER_LEVEL, jsonObject.get("level").getAsInt());
+                    editor.putInt(Constants.USER_EXPERENCE, jsonObject.get("stats").getAsJsonObject().get("experience").getAsInt());
+                    editor.putInt(Constants.USER_MAX_EXPERENCE, jsonObject.get("nextLevel").getAsInt());
+                    editor.apply();
+
+
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+
+                } else {
+                    if (!futureFriends.isCancelled()) {
+                        Toast.makeText(LoginActivity.this, R.string.message_error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                progressDialog.dismiss();
+
+            }
+        });
     }
 
     @Override
@@ -107,4 +150,15 @@ public class LoginActivity extends ActionBarActivity implements LoginButton.OnEr
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (futureFriends!=null && !futureFriends.isDone()) {
+            futureFriends.cancel();
+        }
+    }
+
 }
