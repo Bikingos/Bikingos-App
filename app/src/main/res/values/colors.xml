@@ -4,6 +4,8 @@
     <color name="primary_transparente">#00000000</color>
     <color name="background">#212121</color>
     <color name="primary_black_dark">#000000</color>
+    <color name="accent_yellow">#FBC02D</color>
+    <color name="accent_yellow_press">#F9A825</color>
     <color name="accent_red">#C62828</color>
     <color name="accent_red_press">#B71C1C</color>
     <color name="accent_green">#2E7D32</color>

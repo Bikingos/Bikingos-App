@@ -2,11 +2,13 @@ package com.render.beardedavenger.ui.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ import com.mapbox.mapboxsdk.overlay.PathOverlay;
 import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
 import com.mapbox.mapboxsdk.views.MapView;
 import com.render.beardedavenger.R;
+import com.render.beardedavenger.ui.PerfilActivity;
 
 import java.util.ArrayList;
 
@@ -54,6 +57,7 @@ public class HomeFragment extends Fragment
     private FloatingActionButton mPlayButton;
     private FloatingActionButton mFriendsButton;
     private FloatingActionButton mStopPlayButton;
+    private CardView mUserCard;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -85,10 +89,12 @@ public class HomeFragment extends Fragment
         mPlayButton = (FloatingActionButton) rootView.findViewById(R.id.btn_play);
         mFriendsButton = (FloatingActionButton) rootView.findViewById(R.id.btn_friends);
         mStopPlayButton = (FloatingActionButton)rootView.findViewById(R.id.btn_stop);
+        mUserCard = (CardView) rootView.findViewById(R.id.user_card);
 
         mFriendsButton.setOnClickListener(this);
         mPlayButton.setOnClickListener(this);
         mStopPlayButton.setOnClickListener(this);
+        mUserCard.setOnClickListener(this);
 
         mStopPlayButton.getViewTreeObserver()
                 .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -131,8 +137,12 @@ public class HomeFragment extends Fragment
                 PLAY_MODE = false;
                 initPlayModeIfIsAvailable();
                 break;
+
+            case R.id.user_card:
+                launchProfileActivity();
         }
     }
+
 
     /**
      * Methods for the LocationListener interface.
@@ -184,6 +194,11 @@ public class HomeFragment extends Fragment
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
+    }
+
+    private void launchProfileActivity() {
+        Intent profileIntent = new Intent(getActivity(), PerfilActivity.class);
+        startActivity(profileIntent);
     }
 
     /**

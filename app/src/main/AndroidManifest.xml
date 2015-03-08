@@ -39,7 +39,12 @@
         </activity>
         <activity
             android:name=".ui.PerfilActivity"
+            android:parentActivityName=".ui.HomeActivity"
             android:label="@string/title_activity_perfil" >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.HomeActivity" />
         </activity>
         <meta-data
             android:name="io.fabric.ApiKey"

@@ -96,11 +96,12 @@
                 android:layout_marginTop="12dp"
                 android:layout_below="@+id/textViewExpe"
                 app:backgroundPadding="4dp"
-                app:headerColor="#F9A825"
+                app:headerColor="@color/accent_yellow"
                 app:backgroundRadius="8dp"
-                app:progressColor="#F9A825"
+                app:progressColor="@color/accent_yellow"
                 app:progress="50"
                 app:max="100" />
+
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
