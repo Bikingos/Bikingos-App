@@ -41,6 +41,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:text="Salvador"
+        android:fontFamily="sans-serif-condensed"
         android:textAppearance="?android:textAppearanceMedium"
         android:textStyle="bold"
         tools:ignore="RelativeOverlap" />
@@ -51,6 +52,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="50/100 Exp"
+        android:fontFamily="sans-serif-condensed"
         android:layout_centerInParent="true"
         android:textAppearance="?android:textAppearanceMedium"
         tools:ignore="RelativeOverlap" />
@@ -61,6 +63,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Nivel 8"
+        android:fontFamily="sans-serif-condensed"
         android:layout_centerHorizontal="true"
         android:layout_alignBottom="@id/progressExp"
         android:textAppearance="?android:textAppearanceMedium"

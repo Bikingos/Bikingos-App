@@ -5,7 +5,7 @@
     android:id="@+id/user_card"
     android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="86dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="36dp"
     android:layout_marginBottom="18dp"
     android:layout_marginRight="12dp"
@@ -27,7 +27,10 @@
             android:id="@+id/containerPerfilHome"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:padding="16dp">
+            android:paddingLeft="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingRight="16dp">
 
             <ImageView
                 android:id="@+id/img_user"
@@ -37,41 +40,61 @@
                 android:layout_centerVertical="true" />
 
             <TextView
-                android:id="@+id/txt_lvl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="LV "
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_toRightOf="@+id/img_user"
-                android:layout_toEndOf="@+id/img_user"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-condensed" />
-
-            <TextView
                 android:id="@+id/txt_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Silmood"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_toRightOf="@+id/txt_lvl"
-                android:layout_toEndOf="@+id/txt_lvl"
+                android:layout_toRightOf="@+id/img_user"
+                android:layout_toEndOf="@+id/img_user"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-condensed" />
 
+
+            <TextView
+                android:id="@+id/txt_lvl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nivel 1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed" />
+
+
+            <TextView
+                android:id="@+id/txt_exp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_username"
+                android:text="50/100 Exp"
+                android:gravity="center"
+                android:layout_alignRight="@+id/roundCornerProgressBar"
+                android:layout_alignEnd="@+id/roundCornerProgressBar"
+                android:layout_alignLeft="@+id/roundCornerProgressBar"
+                android:layout_alignStart="@+id/roundCornerProgressBar"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginBottom="-8dp"
+                android:fontFamily="sans-serif-condensed" />
+
+
             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+               android:id="@+id/roundCornerProgressBar"
                 android:layout_width="match_parent"
                 android:layout_height="12dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/img_user"
                 android:layout_toEndOf="@+id/img_user"
-                android:layout_below="@+id/txt_username"
+                android:layout_below="@+id/txt_exp"
                 utils:backgroundPadding="4dp"
                 utils:headerColor="@color/accent_red"
                 utils:backgroundRadius="8dp"

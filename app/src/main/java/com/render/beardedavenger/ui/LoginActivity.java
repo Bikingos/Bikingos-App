@@ -100,6 +100,7 @@ public class LoginActivity extends ActionBarActivity implements LoginButton.OnEr
                     editor.putInt(Constants.USER_LEVEL, jsonObject.get("level").getAsInt());
                     editor.putInt(Constants.USER_EXPERENCE, jsonObject.get("stats").getAsJsonObject().get("experience").getAsInt());
                     editor.putInt(Constants.USER_MAX_EXPERENCE, jsonObject.get("nextLevel").getAsInt());
+                    editor.putString(Constants.USER_TEAM, jsonObject.get("team").getAsString());
                     editor.apply();
 
 

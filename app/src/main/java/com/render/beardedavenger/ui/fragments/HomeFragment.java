@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -58,6 +59,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import io.fabric.sdk.android.services.concurrency.AsyncTask;
 
 public class HomeFragment extends Fragment
         implements GoogleApiClient.ConnectionCallbacks,
@@ -93,6 +96,12 @@ public class HomeFragment extends Fragment
     private ImageView imageViewUser;
     private TextView textViewUserName;
     private TextView kilometersTraveled;
+    private TextView textViewLevel;
+    private TextView textViewExp;
+    private RoundCornerProgressBar roundCornerProgressBar;
+    private int auxProgress;
+    private int progressMax;
+    private int progresExp;
     private Chronometer userChronometer;
 
     public HomeFragment() {
@@ -134,6 +143,11 @@ public class HomeFragment extends Fragment
         kilometersTraveled = (TextView) rootView.findViewById(R.id.txt_distance);
 
         textViewUserName = (TextView) rootView.findViewById(R.id.txt_username);
+        textViewLevel = (TextView) rootView.findViewById(R.id.txt_lvl);
+        textViewExp = (TextView) rootView.findViewById(R.id.txt_exp);
+        roundCornerProgressBar = (RoundCornerProgressBar) rootView.findViewById(R.id.roundCornerProgressBar);
+
+
         rootView.findViewById(R.id.containerPerfilHome).setOnClickListener(this);
 
         mFriendsButton.setOnClickListener(this);
@@ -322,6 +336,8 @@ public class HomeFragment extends Fragment
                             ArrayList<Base> bases = parseBases(new JSONArray(response));
                             drawBasesInMap(bases);
                             requestProgress.dismiss();
+                            new ProgressDataPerfil().execute();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             requestProgress.dismiss();
@@ -639,4 +655,59 @@ public class HomeFragment extends Fragment
 
         return routeInKilometers/1000;
     }
+
+    private class ProgressDataPerfil extends AsyncTask<Void, Integer, Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            auxProgress = 0;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+
+            while (auxProgress < 100) {
+                try {
+                    Thread.sleep(10+auxProgress);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                auxProgress++;
+
+                publishProgress(auxProgress);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+
+            int newProgress= (int) (values[0]*(progressMax/100.0));
+
+            if (newProgress <= progresExp) {
+                roundCornerProgressBar.setProgress(values[0]);
+                textViewExp.setText(newProgress + "/"+progressMax+" Exp");
+            }
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

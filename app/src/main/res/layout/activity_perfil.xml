@@ -53,6 +53,7 @@
         android:textStyle="bold"
         android:paddingBottom="64dp"
         android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-condensed"
         android:textColor="@color/white"
         android:id="@+id/textViewUserName"
         android:layout_below="@+id/imageViewPerfil"
@@ -93,6 +94,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
                 android:text="0/100 Exp."
+                android:fontFamily="sans-serif-condensed"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
