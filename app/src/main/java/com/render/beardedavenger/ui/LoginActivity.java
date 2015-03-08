@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookException;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -20,11 +21,14 @@ import com.render.beardedavenger.util.Constants;
 
 import java.util.Arrays;
 
+import io.fabric.sdk.android.Fabric;
+
 public class LoginActivity extends ActionBarActivity implements LoginButton.OnErrorListener, Session.StatusCallback, View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_login);
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.buttonLoginFacebook);

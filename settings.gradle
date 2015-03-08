@@ -1,1 +1,1 @@
-include ':app', ':Library-Dashed-Circular-Progress'
+include ':app'

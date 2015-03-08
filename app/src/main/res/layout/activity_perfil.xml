@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -16,6 +17,13 @@
         android:layout_height="wrap_content" />
 
     <View
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/gradient_image_perfil"
+        android:layout_alignBottom="@+id/imageViewBackground"
+        android:layout_height="wrap_content" />
+
+    <View
         android:id="@+id/noficationBar"
         android:layout_width="match_parent"
         android:background="@color/transparent"
@@ -27,13 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/noficationBar"
         layout="@layout/toolbar" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/gradient_image_perfil"
-        android:layout_alignBottom="@+id/imageViewBackground"
-        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/imageViewPerfil"
@@ -60,7 +61,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cardViewGraphic"
         android:layout_width="match_parent"
-        android:layout_height="124dp"
+        android:layout_height="wrap_content"
         card_view:cardCornerRadius="2dp"
         android:layout_marginTop="48dp"
         android:layout_marginLeft="8dp"
@@ -69,7 +70,40 @@
         card_view:cardElevation="6dp"
         card_view:cardBackgroundColor="@color/background_card"
         card_view:cardPreventCornerOverlap="false"
-        card_view:cardUseCompatPadding="true"></android.support.v7.widget.CardView>
+        card_view:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textViewExpe"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:text="50/100 Exp."
+                android:textAppearance="?android:textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/textViewExpe"
+                app:backgroundPadding="4dp"
+                app:headerColor="#F9A825"
+                app:backgroundRadius="8dp"
+                app:progressColor="#F9A825"
+                app:progress="50"
+                app:max="100" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
 
 </RelativeLayout>
