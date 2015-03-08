@@ -113,7 +113,6 @@
                 app:iconSrc="@drawable/ic_1"
                 app:progressColor="@color/accent_red"
                 app:backgroundRadius="8dp"
-                app:progress="50"
                 app:max="100" />
 
         </RelativeLayout>

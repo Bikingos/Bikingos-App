@@ -43,14 +43,16 @@ public class ModelMedail {
 
     public void setProgressInitialPecentaje(int progressInitialPecentaje) {
 
-
         if (!unlocked) {
-            int newProgressInitial = (int) ((maxProgres / 100.0) * progressInitialPecentaje);
+            int newProgressInitial = (int) ((progress / 100.0) * progressInitialPecentaje);
 
             if (newProgressInitial <= progress) {
-                this.progressInitialPecentaje = progressInitialPecentaje;
+                this.progressInitialPecentaje = (int) (100 * (newProgressInitial / (maxProgres * 1.0)));;
                 progressInitial = newProgressInitial;
             }
+        }
+        else {
+            this.progressInitialPecentaje = progressInitialPecentaje;
         }
     }
 

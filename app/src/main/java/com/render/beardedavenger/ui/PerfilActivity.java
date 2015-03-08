@@ -247,7 +247,7 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
 
             while (auxProgress < 100) {
                 try {
-                    Thread.sleep(10+auxProgress);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -263,10 +263,11 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
             super.onProgressUpdate(values);
 
 
-            int newProgress= (int) (values[0]*(progressMax/100.0));
+            int newProgress= (int) (values[0]*(progresExp/100.0));
 
             if (newProgress <= progresExp) {
-                roundCornerProgressBar.setProgress(values[0]);
+                int progress = (int) (100 * (newProgress / (progressMax * 1.0)));
+                roundCornerProgressBar.setProgress(progress);
                 textViewExpe.setText(newProgress + "/"+progressMax+" Exp");
             }
             medalsAdapter.setNewProgress(values[0]);

@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.Chronometer;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -300,8 +299,10 @@ public class HomeFragment extends Fragment
 
                             if(bases.isEmpty())
                                 getBasesFromServer();
-                            else
+                            else {
                                 drawMarkersSaved();
+//                                new ProgressDataPerfil().execute();
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -402,12 +403,25 @@ public class HomeFragment extends Fragment
     }
 
     private void obtainUserInfo() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.PREFERENCE_USER, Context.MODE_PRIVATE);
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.PREFERENCE_USER, Context.MODE_PRIVATE);
         String urlPicturePerfil = "https://graph.facebook.com/" + sharedPreferences.getString(Constants.USER_ID, "") + "/picture?width=200&height=200";
         Picasso.with(getActivity()).load(urlPicturePerfil).placeholder(R.drawable.ic_person_white_48dp).transform(new CirclePicture()).into(imageViewUser);
-
         textViewUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
+
+        textViewLevel.setText("Nivel " + sharedPreferences.getInt(Constants.USER_LEVEL, 1));
+        textViewExp.setText("0/" + sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 100) + " Exp");
+        roundCornerProgressBar.setProgress(0);
+
+        if (sharedPreferences.getString(Constants.USER_TEAM, "green").equals("green")) {
+            roundCornerProgressBar.setProgressColor(getResources().getColor(R.color.accent_green));
+        } else {
+            roundCornerProgressBar.setProgressColor(getResources().getColor(R.color.accent_red));
+        }
+
+        progresExp = sharedPreferences.getInt(Constants.USER_EXPERENCE, 50);
+        progressMax = sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 50);
+
     }
 
     private void launchProfileActivity() {
@@ -671,7 +685,7 @@ public class HomeFragment extends Fragment
 
             while (auxProgress < 100) {
                 try {
-                    Thread.sleep(10+auxProgress);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -687,10 +701,12 @@ public class HomeFragment extends Fragment
             super.onProgressUpdate(values);
 
 
-            int newProgress= (int) (values[0]*(progressMax/100.0));
+            int newProgress = (int) (values[0] * (progresExp / 100.0));
 
             if (newProgress <= progresExp) {
-                roundCornerProgressBar.setProgress(values[0]);
+                int progress = (int) (100 * (newProgress / (progressMax * 1.0)));
+                roundCornerProgressBar.setProgress(progress);
+
                 textViewExp.setText(newProgress + "/"+progressMax+" Exp");
             }
 

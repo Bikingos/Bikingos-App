@@ -37,10 +37,12 @@ public class ModelFriends {
 
     public void setProgressInitialPecentaje(int progressInitialPecentaje) {
 
-        int newProgressInitial = (int) ((maxExp / 100.0) * progressInitialPecentaje);
+        int newProgressInitial = (int) ((progressInitialPecentaje / 100.0) * progressInitialPecentaje);
 
         if (newProgressInitial <= exp) {
             this.progressInitialPecentaje = progressInitialPecentaje;
+//            this.progressInitialPecentaje = (int) (100 * (newProgressInitial / (maxExp * 1.0)));;;
+
             progressInitial = newProgressInitial;
         }
 

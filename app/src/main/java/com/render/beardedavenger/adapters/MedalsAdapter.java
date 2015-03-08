@@ -49,18 +49,14 @@ public class MedalsAdapter extends BaseAdapter {
         TextView textViewProgress = (TextView) view.findViewById(R.id.textViewNivel);
         DonutProgress progressMadail = (DonutProgress) view.findViewById(R.id.progressExp);
 
-
-
         if (modelMedail.isUnlocked()) {
             imageViewLock.setVisibility(View.GONE);
             textViewProgress.setText(modelMedail.getProgress() + "");
-            progressMadail.setProgress(100);
-
         } else {
             textViewProgress.setText(modelMedail.getProgressInitial() + "/" + modelMedail.getMaxProgres());
-            progressMadail.setProgress(modelMedail.getProgressInitialPecentaje());
         }
 
+        progressMadail.setProgress(modelMedail.getProgressInitialPecentaje());
 
         TextView textViewDescription = (TextView) view.findViewById(R.id.textViewExp);
         textViewDescription.setText(modelMedail.getDescription());
