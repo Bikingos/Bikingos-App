@@ -17,8 +17,11 @@
     <string name="stars">Start</string>
     <string name="title_activity_friend">Amigos</string>
     <string name="text_loading">Cargando…</string>
-    <string name="power_points_request">Obteniendo territorios...</string>
+    <string name="action_logout">Cerrar Sesión</string>
+    <string name="power_points_request">Obteniendo territorios…</string>
     <string name="request_update_failed">Ocurrió un error en la actualización</string>
+    <string name="post_route">Marcando territorio…</string>
+    <string name="bases_request">Obteniendo bases…</string>
     <string name="post_route">Marcando territorio...</string>
     <string name="bases_request">Obteniendo bases...</string>
     <string name="time_label">Tiempo Transcurrido</string>

@@ -19,7 +19,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.render.beardedavenger.R;
 import com.render.beardedavenger.adapters.FriendsAdapter;
-import com.render.beardedavenger.io.AplClient;
+import com.render.beardedavenger.io.ApiClient;
 import com.render.beardedavenger.models.ModelFriends;
 import com.render.beardedavenger.util.Constants;
 
@@ -63,10 +63,10 @@ public class FriendsActivity extends ActionBarActivity implements AdapterView.On
         progressDialog.setMessage(getString(R.string.text_loading));
         progressDialog.show();
 
-        futureFriends = AplClient.requestWebGet(FriendsActivity.this, Constants.URL_FRIENDS, new FutureCallback<JsonArray>() {
+        futureFriends = ApiClient.requestWebGet(FriendsActivity.this, Constants.URL_FRIENDS, new FutureCallback<JsonArray>() {
             @Override
             public void onCompleted(Exception e, JsonArray result) {
-                if(result!=null) {
+                if (result != null) {
 
                     Log.d("TAG", result.toString());
                     Gson gson = new Gson();
@@ -79,8 +79,7 @@ public class FriendsActivity extends ActionBarActivity implements AdapterView.On
                     listViewFriends.setOnScrollListener(FriendsActivity.this);
 
                     new ProgressDataPerfil().execute();
-                }
-                else {
+                } else {
                     if (!futureFriends.isCancelled()) {
                         Toast.makeText(FriendsActivity.this, R.string.message_error, Toast.LENGTH_SHORT).show();
                     }
@@ -105,9 +104,8 @@ public class FriendsActivity extends ActionBarActivity implements AdapterView.On
     protected void onDestroy() {
         super.onDestroy();
 
-        if (futureFriends!=null && !futureFriends.isDone())
-        {
-
+        if (futureFriends!=null && !futureFriends.isDone()) {
+            futureFriends.cancel();
         }
     }
 

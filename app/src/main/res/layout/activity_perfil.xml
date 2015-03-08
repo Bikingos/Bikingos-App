@@ -98,15 +98,18 @@
                 android:layout_height="wrap_content" />
 
 
-            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
                 android:id="@+id/progressBarExp"
                 android:layout_width="match_parent"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_below="@+id/textViewExpe"
                 app:backgroundPadding="4dp"
-                app:headerColor="@color/accent_yellow"
-                app:progressColor="@color/accent_yellow"
+                app:iconPadding="6dp"
+                app:iconSize="20dp"
+                app:headerColor="#ffa62424"
+                app:iconSrc="@drawable/ic_1"
+                app:progressColor="@color/accent_red"
                 app:backgroundRadius="8dp"
                 app:progress="50"
                 app:max="100" />
