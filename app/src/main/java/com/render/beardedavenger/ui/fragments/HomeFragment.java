@@ -16,13 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AnticipateOvershootInterpolator;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -90,6 +90,9 @@ public class HomeFragment extends Fragment
 
     private ImageView imageViewUser;
     private TextView textViewUserName;
+    private TextView textViewLevel;
+    private TextView textViewExp;
+    private RoundCornerProgressBar roundCornerProgressBar;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -128,6 +131,11 @@ public class HomeFragment extends Fragment
         userLocationButton = (ImageButton) rootView.findViewById(R.id.btn_user_location);
 
         textViewUserName = (TextView) rootView.findViewById(R.id.txt_username);
+        textViewLevel = (TextView) rootView.findViewById(R.id.txt_lvl);
+        textViewExp = (TextView) rootView.findViewById(R.id.txt_exp);
+        roundCornerProgressBar = (RoundCornerProgressBar) rootView.findViewById(R.id.roundCornerProgressBar);
+
+
         rootView.findViewById(R.id.containerPerfilHome).setOnClickListener(this);
 
         mFriendsButton.setOnClickListener(this);
@@ -152,6 +160,19 @@ public class HomeFragment extends Fragment
         obtainUserInfo();
 
         return rootView;
+    }
+
+    private void obtainUserInfo() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.PREFERENCE_USER, Context.MODE_PRIVATE);
+        String urlPicturePerfil = "https://graph.facebook.com/" + sharedPreferences.getString(Constants.USER_ID, "") + "/picture?width=200&height=200";
+        Picasso.with(getActivity()).load(urlPicturePerfil).placeholder(R.drawable.ic_person_white_48dp).transform(new CirclePicture()).into(imageViewUser);
+        textViewUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
+
+        textViewLevel.setText("Nivel " + sharedPreferences.getInt(Constants.USER_LEVEL, 1));
+        textViewExp.setText(sharedPreferences.getInt(Constants.USER_EXPERENCE, 50) + "/" + sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 100) + " Exp");
+        roundCornerProgressBar.setProgress((float) (100.0 * (sharedPreferences.getInt(Constants.USER_EXPERENCE, 50) / (sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 100) * 1.0))));
+
+
     }
 
     @Override
@@ -377,14 +398,7 @@ public class HomeFragment extends Fragment
         setUpProgressDialog(R.string.post_route);
     }
 
-    private void obtainUserInfo() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.PREFERENCE_USER, Context.MODE_PRIVATE);
 
-        String urlPicturePerfil = "https://graph.facebook.com/" + sharedPreferences.getString(Constants.USER_ID, "") + "/picture?width=200&height=200";
-        Picasso.with(getActivity()).load(urlPicturePerfil).placeholder(R.drawable.ic_person_white_48dp).transform(new CirclePicture()).into(imageViewUser);
-
-        textViewUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
-    }
 
     private void launchProfileActivity() {
         Intent profileIntent = new Intent(getActivity(), PerfilActivity.class);
