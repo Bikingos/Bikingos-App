@@ -14,11 +14,17 @@ import com.squareup.picasso.Picasso;
 /**
  * Created by sati on 08/03/2015.
  */
-public class AplClient {
+public class ApiClient {
 
     public static void loadImage(Context context, ImageView imageView, String url) {
 
         Picasso.with(context).load(url).placeholder(R.drawable.ic_person_white_48dp).transform(new CirclePicture()).into(imageView);
+
+    }
+
+    public static void loadImageResource(Context context, ImageView imageView, int id ) {
+
+        Picasso.with(context).load(id).placeholder(R.drawable.ic_person_white_48dp).transform(new CirclePicture()).into(imageView);
 
     }
 

@@ -20,9 +20,21 @@
         android:layout_height="64dp"
         android:layout_alignTop="@+id/progressExp"
         android:layout_alignBottom="@+id/progressExp"
-        android:layout_centerVertical="true"
         android:src="@drawable/medalla_bronce"
         android:contentDescription="@string/app_name" />
+
+
+    <ImageView
+        android:id="@+id/imageViewLock"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:padding="8dp"
+        android:layout_alignTop="@+id/progressExp"
+        android:layout_alignBottom="@+id/progressExp"
+        android:background="#CC212121"
+        android:src="@drawable/ic_lock_outline_grey600_48dp"
+        android:contentDescription="@string/app_name" />
+
 
     <com.github.lzyzsd.circleprogress.DonutProgress
         android:id="@+id/progressExp"

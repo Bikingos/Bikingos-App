@@ -17,5 +17,6 @@
     <string name="stars">Start</string>
     <string name="title_activity_friend">Amigos</string>
     <string name="text_loading">Cargando…</string>
+    <string name="action_logout">Cerrar Sesión</string>
 
 </resources>

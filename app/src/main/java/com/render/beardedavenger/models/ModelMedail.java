@@ -1,16 +1,31 @@
 package com.render.beardedavenger.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by sati on 07/03/2015.
  */
 public class ModelMedail {
 
+
+    @SerializedName("title")
     private String titleMedail;
+
+    @SerializedName("stat")
     private int progress;
+
+    @SerializedName("needed")
     private int maxProgres;
+
+    @SerializedName("unlocked")
     private boolean unlocked;
+
+    @SerializedName("type")
     private int type;
+
+    @SerializedName("unit")
     private String description;
+
     private int progressInitial;
     private int progressInitialPecentaje;
 
@@ -28,13 +43,15 @@ public class ModelMedail {
 
     public void setProgressInitialPecentaje(int progressInitialPecentaje) {
 
-        int newProgressInitial = (int) ((maxProgres / 100.0)*progressInitialPecentaje);
 
-        if (newProgressInitial<=progress) {
-            this.progressInitialPecentaje = progressInitialPecentaje;
-            progressInitial = newProgressInitial;
+        if (!unlocked) {
+            int newProgressInitial = (int) ((maxProgres / 100.0) * progressInitialPecentaje);
+
+            if (newProgressInitial <= progress) {
+                this.progressInitialPecentaje = progressInitialPecentaje;
+                progressInitial = newProgressInitial;
+            }
         }
-
     }
 
     public int getProgressInitial() {

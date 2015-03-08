@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.render.beardedavenger.R;
-import com.render.beardedavenger.io.AplClient;
+import com.render.beardedavenger.io.ApiClient;
 import com.render.beardedavenger.models.ModelFriends;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class FriendsAdapter extends BaseAdapter {
         View view = inflater.inflate(modelFriends.getTeam() == 1 ? R.layout.item_friend_green : R.layout.item_friend_red, parent, false);
 
         ImageView imageViewFriend = (ImageView) view.findViewById(R.id.imageViewFriend);
-        AplClient.loadImage(context, imageViewFriend, modelFriends.getUrlImage());
+        ApiClient.loadImage(context, imageViewFriend, modelFriends.getUrlImage());
 
         TextView textViewUserName = (TextView) view.findViewById(R.id.textViewUserName);
         textViewUserName.setText(modelFriends.getUserName());

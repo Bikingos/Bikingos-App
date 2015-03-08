@@ -17,6 +17,7 @@ public class Constants {
     public static final String USER_ID = "id";
 
     public static final String URL_FRIENDS = "http://188.166.7.238:8888/v1/users/bob/friends";
+    public static final String URL_PERFIL = "http://188.166.7.238:8888/v1/users/bob/medals";
 
 
 

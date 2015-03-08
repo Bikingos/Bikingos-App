@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.render.beardedavenger.R;
+import com.render.beardedavenger.io.ApiClient;
 import com.render.beardedavenger.models.ModelMedail;
 
 import java.util.List;
@@ -37,21 +38,78 @@ public class MedalsAdapter extends BaseAdapter {
 
         ModelMedail modelMedail = modelMedails.get(position);
 
-        ImageView imageViewMedail = (ImageView) view.findViewById(R.id.imageViewFriend);
         TextView textViewTitleMedail = (TextView) view.findViewById(R.id.textViewUserName);
         textViewTitleMedail.setText(modelMedail.getTitleMedail());
 
-        TextView textViewProgress = (TextView) view.findViewById(R.id.textViewNivel);
-        textViewProgress.setText(modelMedail.getProgressInitial() + "/" + modelMedail.getMaxProgres());
+        ImageView imageViewMedail = (ImageView) view.findViewById(R.id.imageViewFriend);
+        selectMadail(imageViewMedail,position);
 
+
+        ImageView imageViewLock = (ImageView) view.findViewById(R.id.imageViewLock);
+        TextView textViewProgress = (TextView) view.findViewById(R.id.textViewNivel);
         DonutProgress progressMadail = (DonutProgress) view.findViewById(R.id.progressExp);
-        progressMadail.setProgress(modelMedail.getProgressInitialPecentaje());
+
+
+
+        if (modelMedail.isUnlocked()) {
+            imageViewLock.setVisibility(View.GONE);
+            textViewProgress.setText(modelMedail.getProgress() + "");
+            progressMadail.setProgress(100);
+
+        } else {
+            textViewProgress.setText(modelMedail.getProgressInitial() + "/" + modelMedail.getMaxProgres());
+            progressMadail.setProgress(modelMedail.getProgressInitialPecentaje());
+        }
+
 
         TextView textViewDescription = (TextView) view.findViewById(R.id.textViewExp);
         textViewDescription.setText(modelMedail.getDescription());
 
         return view;
     }
+
+
+    private void selectMadail(ImageView imageView, int position) {
+
+        int id = 0;
+
+
+        switch (position)
+        {
+            case 0:
+                id = R.drawable.rsz_viajero3;
+                break;
+            case 1:
+                id = R.drawable.rsz_kilometros;
+                break;
+            case 2:
+                id = R.drawable.rsz_contaminantes;
+                break;
+            case 3:
+                id = R.drawable.rsz_1bases;
+                break;
+            case 4:
+                id = R.drawable.rsz_unibases;
+                break;
+            case 5:
+                id = R.drawable.rsz_conquistador;
+                break;
+            case 6:
+                id = R.drawable.fortified;
+                break;
+            case 7:
+                id = R.drawable.rsz_destroyer;
+                break;
+            case 8:
+                id = R.drawable.rsz_warrior;
+                break;
+
+        }
+
+        ApiClient.loadImageResource(context, imageView, id);
+
+    }
+
 
     public void setNewProgress(int progressInitial) {
 
