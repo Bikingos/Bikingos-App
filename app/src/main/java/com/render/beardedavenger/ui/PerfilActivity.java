@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
 import com.facebook.Session;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -42,7 +42,7 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
     private TextView textViewUserName;
     private int progresExp = 50;
     private int auxProgress;
-    private RoundCornerProgressBar roundCornerProgressBar;
+    private IconRoundCornerProgressBar roundCornerProgressBar;
     private TextView textViewExpe;
     private ListView listViewMedails;
     private Future futureFriends;
@@ -65,7 +65,7 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
 
         imageViewPerfil = (ImageView) findViewById(R.id.imageViewPerfil);
         textViewUserName = (TextView) findViewById(R.id.textViewUserName);
-        roundCornerProgressBar = (RoundCornerProgressBar) findViewById(R.id.progressBarExp);
+        roundCornerProgressBar = (IconRoundCornerProgressBar) findViewById(R.id.progressBarExp);
         textViewExpe = (TextView) findViewById(R.id.textViewExpe);
 
         listViewMedails = (ListView) findViewById(R.id.listViewFriends);

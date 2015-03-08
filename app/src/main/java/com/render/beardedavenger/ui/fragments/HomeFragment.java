@@ -118,6 +118,7 @@ public class HomeFragment extends Fragment
         imageViewUser = (ImageView) rootView.findViewById(R.id.img_user);
 
         textViewUserName = (TextView) rootView.findViewById(R.id.txt_username);
+        rootView.findViewById(R.id.containerPerfilHome).setOnClickListener(this);
 
         mFriendsButton.setOnClickListener(this);
         mPlayButton.setOnClickListener(this);
@@ -178,7 +179,7 @@ public class HomeFragment extends Fragment
 
                 break;
 
-            case R.id.user_card:
+            case R.id.containerPerfilHome:
                launchProfileActivity();
                break;
 
