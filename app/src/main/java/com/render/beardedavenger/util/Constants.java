@@ -43,4 +43,5 @@ public class Constants {
     public static final String USER_LEVEL = "level";
     public static final String USER_EXPERENCE = "experience";
     public static final String USER_MAX_EXPERENCE = "max_experence";
+    public static final String SPECIAL_BASE = "special";
 }
