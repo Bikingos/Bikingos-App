@@ -104,8 +104,7 @@ public class LoginActivity extends ActionBarActivity implements LoginButton.OnEr
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(LoginActivity.this, PerfilActivity.class);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
-
     }
 }
