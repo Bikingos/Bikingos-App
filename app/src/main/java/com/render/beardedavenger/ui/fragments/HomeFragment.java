@@ -2,6 +2,8 @@ package com.render.beardedavenger.ui.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -9,6 +11,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.AnticipateOvershootInterpolator;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.common.ConnectionResult;
@@ -22,6 +28,10 @@ import com.mapbox.mapboxsdk.overlay.PathOverlay;
 import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
 import com.mapbox.mapboxsdk.views.MapView;
 import com.render.beardedavenger.R;
+import com.render.beardedavenger.ui.PerfilActivity;
+import com.render.beardedavenger.util.CirclePicture;
+import com.render.beardedavenger.util.Constants;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -46,7 +56,13 @@ public class HomeFragment extends Fragment
 
     private GoogleApiClient mApiClient; // With this client we're gonna listen to location changes
     private FloatingActionButton mPlayButton;
-    private FloatingActionButton mMenuButton;
+    private FloatingActionButton mFriendsButton;
+    private FloatingActionButton mStopPlayButton;
+//    private CardView mUserCard;
+
+
+    private ImageView imageViewUser;
+    private TextView textViewUserName;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -73,18 +89,52 @@ public class HomeFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
         mMap = (MapView) rootView.findViewById(R.id.game_map);
         mPlayButton = (FloatingActionButton) rootView.findViewById(R.id.btn_play);
+        mFriendsButton = (FloatingActionButton) rootView.findViewById(R.id.btn_friends);
+        mStopPlayButton = (FloatingActionButton)rootView.findViewById(R.id.btn_stop);
+//        mUserCard = (CardView) rootView.findViewById(R.id.user_card);
+        rootView.findViewById(R.id.containerPerfilHome).setOnClickListener(this);
+
+        imageViewUser = (ImageView) rootView.findViewById(R.id.img_user);
+
+        textViewUserName = (TextView) rootView.findViewById(R.id.txt_username);
+
+        mFriendsButton.setOnClickListener(this);
         mPlayButton.setOnClickListener(this);
+        mStopPlayButton.setOnClickListener(this);
+//        mUserCard.setOnClickListener(this);
+
+        mStopPlayButton.getViewTreeObserver()
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                hideGameInterface();
+                mStopPlayButton.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
 
         setUpMap();
-        setUpButtons();
         setUpUserLocation();
+
+        obtainUserInfo();
 
         return rootView;
     }
 
+    private void obtainUserInfo () {
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Constants.PREFERENCE_USER, Context.MODE_PRIVATE);
+
+        String urlPicturePerfil = "https://graph.facebook.com/" + sharedPreferences.getString(Constants.USER_ID,"") + "/picture?width=200&height=200";
+        Picasso.with(getActivity()).load(urlPicturePerfil).placeholder(R.drawable.ic_person_white_48dp).transform(new CirclePicture()).into(imageViewUser);
+
+        textViewUserName.setText(sharedPreferences.getString(Constants.USER_NAME,""));
+
+
+    }
 
     @Override
     public void onResume() {
@@ -98,14 +148,25 @@ public class HomeFragment extends Fragment
         mApiClient.disconnect();
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_play:
-                PLAY_MODE = !PLAY_MODE;
+                PLAY_MODE = true;
+                initPlayModeIfIsAvailable();
                 break;
+
+            case R.id.btn_stop:
+                PLAY_MODE = false;
+                initPlayModeIfIsAvailable();
+                break;
+
+            case R.id.containerPerfilHome:
+                launchProfileActivity();
         }
     }
+
 
     /**
      * Methods for the LocationListener interface.
@@ -159,13 +220,18 @@ public class HomeFragment extends Fragment
 
     }
 
+    private void launchProfileActivity() {
+        Intent profileIntent = new Intent(getActivity(), PerfilActivity.class);
+        startActivity(profileIntent);
+    }
+
     /**
      * Setting the mapbox tracking mode
      */
     private void setUpUserLocation() {
         mMap.setUserLocationEnabled(true);
         mMap.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW);
-        mMap.setUserLocationRequiredZoom(10);
+        mMap.setUserLocationRequiredZoom(14);
     }
 
     /**
@@ -175,7 +241,52 @@ public class HomeFragment extends Fragment
         route = new PathOverlay(Color.RED, 5);
     }
 
-    private void setUpButtons() {
+    private void initPlayModeIfIsAvailable() {
+        if(PLAY_MODE){
+            hideOptionButtons();
+            showGameInterface();
+        }
+        else {
+            showOptionButtons();
+            hideGameInterface();
+        }
+    }
+
+    private void showOptionButtons() {
+        mFriendsButton.animate()
+                .translationX(0)
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
+        mPlayButton.animate()
+                .translationX(0)
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
+    }
+
+    private void hideOptionButtons() {
+        mFriendsButton.animate()
+                .translationX(-mFriendsButton.getMeasuredWidth())
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
+        mPlayButton.animate()
+                .translationX(mPlayButton.getMeasuredWidth())
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+    }
+
+    private void showGameInterface() {
+        mStopPlayButton.setVisibility(View.VISIBLE);
+
+        mStopPlayButton.animate()
+                .translationY(0)
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
+    }
+
+    private void hideGameInterface() {
+        mStopPlayButton.animate()
+                .translationY(mStopPlayButton.getWidth())
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
     }
 
 }

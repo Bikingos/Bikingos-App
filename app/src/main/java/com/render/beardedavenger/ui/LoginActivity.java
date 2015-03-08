@@ -60,7 +60,7 @@ public class LoginActivity extends ActionBarActivity implements LoginButton.OnEr
                                 editor.putString(Constants.USER_EMAIL, user.getProperty("email").toString());
                                 editor.apply();
 
-                                Intent intent = new Intent(LoginActivity.this, PerfilActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);
 
                             } else {

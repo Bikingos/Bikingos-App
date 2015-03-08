@@ -6,7 +6,7 @@
     <string name="map_id">chemonky.ld4l0ah8</string>
     <string name="mapbox_key">pk.eyJ1Ijoic2lsbW9vZCIsImEiOiJvZHc0Wkw0In0.QYWdGSwfjNBrGQFUFCwkUw</string>
 
-    <string name="facebook_app_id">774946449261690</string>
+    <string name="facebook_app_id">799848643427573</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="text_login_facebook">Iniciar Sesión con Facebook</string>
     <string name="text_hint_password">Contraseña</string>

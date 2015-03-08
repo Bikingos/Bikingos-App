@@ -12,6 +12,11 @@
         util:mapid="@string/map_id"
         util:accessToken="@string/mapbox_key"/>
 
+    <include
+        android:id="@+id/user_card"
+        layout="@layout/snippet_user"
+        android:layout_marginTop="20dp"/>
+
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_play"
         android:layout_width="wrap_content"
@@ -33,5 +38,16 @@
         util:fab_icon="@drawable/ic_friends"
         util:fab_colorNormal="@color/accent_red"
         util:fab_colorPressed="@color/accent_red_press"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        util:fab_icon="@drawable/ic_waving"
+        util:fab_colorNormal="@color/accent_yellow"
+        util:fab_colorPressed="@color/accent_yellow_press"/>
 
 </RelativeLayout>
