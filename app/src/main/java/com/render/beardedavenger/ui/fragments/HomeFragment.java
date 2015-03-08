@@ -16,7 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AnticipateOvershootInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,14 +75,18 @@ public class HomeFragment extends Fragment
     private MapView mMap;
     private Location currentLocation;
     private ArrayList<Location> routePoints;
+    private ArrayList<Marker> bases;
     private PathOverlay route;
 
     private GoogleApiClient mApiClient; // With this client we're gonna listen to location changes
     private FloatingActionButton mPlayButton;
     private FloatingActionButton mFriendsButton;
     private FloatingActionButton mStopPlayButton;
+    private ImageButton userLocationButton;
 
     private ProgressDialog requestProgress;
+    private CardView statCard;
+    private CardView mUserCard;
 
     private ImageView imageViewUser;
     private TextView textViewUserName;
@@ -98,6 +105,7 @@ public class HomeFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         routePoints = new ArrayList<>();
+        bases = new ArrayList<>();
         mApiClient = new GoogleApiClient.Builder(CONTEXT)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
@@ -114,14 +122,17 @@ public class HomeFragment extends Fragment
         mPlayButton = (FloatingActionButton) rootView.findViewById(R.id.btn_play);
         mFriendsButton = (FloatingActionButton) rootView.findViewById(R.id.btn_friends);
         mStopPlayButton = (FloatingActionButton) rootView.findViewById(R.id.btn_stop);
-        CardView mUserCard = (CardView) rootView.findViewById(R.id.user_card);
+        mUserCard = (CardView) rootView.findViewById(R.id.user_card);
+        statCard = (CardView) rootView.findViewById(R.id.stat_card);
         imageViewUser = (ImageView) rootView.findViewById(R.id.img_user);
+        userLocationButton = (ImageButton) rootView.findViewById(R.id.btn_user_location);
 
         textViewUserName = (TextView) rootView.findViewById(R.id.txt_username);
 
         mFriendsButton.setOnClickListener(this);
         mPlayButton.setOnClickListener(this);
         mStopPlayButton.setOnClickListener(this);
+        userLocationButton.setOnClickListener(this);
         mUserCard.setOnClickListener(this);
 
         mStopPlayButton.getViewTreeObserver()
@@ -186,6 +197,11 @@ public class HomeFragment extends Fragment
                 Intent intent = new Intent(getActivity(), FriendsActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.btn_user_location:
+                mMap.setCenter(mMap.getUserLocation());
+                break;
+
         }
     }
 
@@ -247,7 +263,7 @@ public class HomeFragment extends Fragment
      * Request Methods with volley
      */
 
-    public void getPowerPointsFromServer() {
+    private void getPowerPointsFromServer() {
 
         StringRequest getPowerPoints = new StringRequest(Request.Method.GET,
                 Constants.POWER_POINTS_URL,
@@ -258,7 +274,12 @@ public class HomeFragment extends Fragment
                             ArrayList<PowerPoint> powerPoints = parsePowerPoints(new JSONObject(response));
                             drawPointsInMap(powerPoints);
                             requestProgress.dismiss();
-                            //getBasesFromServer();
+
+                            if(bases.isEmpty())
+                                getBasesFromServer();
+                            else
+                                drawMarkersSaved();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             requestProgress.dismiss();
@@ -415,9 +436,20 @@ public class HomeFragment extends Fragment
     private void drawBasesInMap(ArrayList<Base> bases) {
         for (Base currentBase : bases) {
             Marker pointMarker = new Marker(mMap, "", "", currentBase.getCoordinates());
+
+            if(currentBase.getStatus().equals(Constants.SPECIAL_BASE)){
+                pointMarker.setMarker(getResources().getDrawable(R.drawable.ic_marker_yellow));
+            }
+            this.bases.add(pointMarker);
             mMap.addMarker(pointMarker);
         }
 
+    }
+
+    private void drawMarkersSaved (){
+        for (Marker base: bases) {
+            mMap.addMarker(base);
+        }
     }
 
     private void clearData() {
@@ -439,6 +471,11 @@ public class HomeFragment extends Fragment
     }
 
     private void showOptionButtons() {
+
+        mUserCard.animate()
+                .translationY(0)
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
         mFriendsButton.animate()
                 .translationX(0)
                 .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
@@ -450,6 +487,13 @@ public class HomeFragment extends Fragment
     }
 
     private void hideOptionButtons() {
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mUserCard.getLayoutParams();
+        int bottomMargin = lp.topMargin;
+
+        mUserCard.animate()
+                .translationY(-mFriendsButton.getHeight() - bottomMargin)
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
         mFriendsButton.animate()
                 .translationX(-mFriendsButton.getMeasuredWidth())
                 .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
@@ -461,8 +505,13 @@ public class HomeFragment extends Fragment
 
     private void showGameInterface() {
         mStopPlayButton.setVisibility(View.VISIBLE);
+        statCard.setVisibility(View.VISIBLE);
 
         mStopPlayButton.animate()
+                .translationY(0)
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
+        statCard.animate()
                 .translationY(0)
                 .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
 
@@ -471,6 +520,13 @@ public class HomeFragment extends Fragment
     private void hideGameInterface() {
         mStopPlayButton.animate()
                 .translationY(mStopPlayButton.getWidth())
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) statCard.getLayoutParams();
+        int bottomMargin = lp.topMargin;
+
+        statCard.animate()
+                .translationY(-statCard.getHeight() - bottomMargin)
                 .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
 
     }

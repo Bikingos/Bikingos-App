@@ -37,13 +37,28 @@
                 android:layout_centerVertical="true" />
 
             <TextView
+                android:id="@+id/txt_lvl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LV "
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@+id/img_user"
+                android:layout_toEndOf="@+id/img_user"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed" />
+
+            <TextView
                 android:id="@+id/txt_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Silmood"
                 android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@+id/img_user"
-                android:layout_toEndOf="@+id/img_user"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@+id/txt_lvl"
+                android:layout_toEndOf="@+id/txt_lvl"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -58,9 +73,9 @@
                 android:layout_toEndOf="@+id/img_user"
                 android:layout_below="@+id/txt_username"
                 utils:backgroundPadding="4dp"
-                utils:headerColor="@color/accent_yellow"
+                utils:headerColor="@color/accent_red"
                 utils:backgroundRadius="8dp"
-                utils:progressColor="@color/accent_yellow"
+                utils:progressColor="@color/accent_red"
                 utils:progress="50"
                 utils:max="100" />
         </RelativeLayout>

@@ -17,6 +17,25 @@
         layout="@layout/snippet_user"
         android:layout_marginTop="20dp"/>
 
+    <include
+        android:id="@+id/stat_card"
+        layout="@layout/card_chronometer"
+        android:visibility="invisible"
+        android:layout_marginTop="20dp"/>
+
+    <ImageButton
+        android:id="@+id/btn_user_location"
+        android:src="@drawable/ic_gps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_card"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#424242"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:padding="2dp"/>
+
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_play"
         android:layout_width="wrap_content"
