@@ -65,7 +65,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:fontFamily="sans-serif-condensed"
-            android:text="0.14KM"/>
+            android:text="KM"/>
 
     </RelativeLayout>
 

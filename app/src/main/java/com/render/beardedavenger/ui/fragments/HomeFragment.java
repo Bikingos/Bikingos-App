@@ -92,6 +92,7 @@ public class HomeFragment extends Fragment
 
     private ImageView imageViewUser;
     private TextView textViewUserName;
+    private TextView kilometersTraveled;
     private Chronometer userChronometer;
 
     public HomeFragment() {
@@ -130,6 +131,7 @@ public class HomeFragment extends Fragment
         imageViewUser = (ImageView) rootView.findViewById(R.id.img_user);
         userLocationButton = (ImageButton) rootView.findViewById(R.id.btn_user_location);
         userChronometer = (Chronometer) rootView.findViewById(R.id.chronometer);
+        kilometersTraveled = (TextView) rootView.findViewById(R.id.txt_distance);
 
         textViewUserName = (TextView) rootView.findViewById(R.id.txt_username);
         rootView.findViewById(R.id.containerPerfilHome).setOnClickListener(this);
@@ -227,6 +229,7 @@ public class HomeFragment extends Fragment
             if (PLAY_MODE) {
                 route.addPoint(currentPoint);
                 routePoints.add(location);
+                kilometersTraveled.setText(getRouteInKilometers(routePoints) + "KM");
 
                 mMap.getOverlays().remove(route);
                 mMap.getOverlays().add(route);
@@ -276,6 +279,7 @@ public class HomeFragment extends Fragment
                     @Override
                     public void onResponse(String response) {
                         try {
+                            mMap.clear();
                             ArrayList<PowerPoint> powerPoints = parsePowerPoints(new JSONObject(response));
                             drawPointsInMap(powerPoints);
                             requestProgress.dismiss();
@@ -625,11 +629,11 @@ public class HomeFragment extends Fragment
     }
 
     public double getRouteInKilometers(ArrayList<Location> routePoints) {
-        double routeInKilometers = 0f;
+        int routeInKilometers = 0;
         Location previousLocation = routePoints.get(0);
 
         for (int i = 1; i < routePoints.size(); i++) {
-            routeInKilometers += previousLocation.distanceTo(routePoints.get(i));
+            routeInKilometers += previousLocation.distanceTo(routePoints.get(i)) ;
             previousLocation = routePoints.get(i);
         }
 
