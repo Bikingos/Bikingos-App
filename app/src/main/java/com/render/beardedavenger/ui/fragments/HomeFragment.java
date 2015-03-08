@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AnticipateOvershootInterpolator;
+import android.widget.Chronometer;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -90,6 +92,7 @@ public class HomeFragment extends Fragment
 
     private ImageView imageViewUser;
     private TextView textViewUserName;
+    private Chronometer userChronometer;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -126,6 +129,7 @@ public class HomeFragment extends Fragment
         statCard = (CardView) rootView.findViewById(R.id.stat_card);
         imageViewUser = (ImageView) rootView.findViewById(R.id.img_user);
         userLocationButton = (ImageButton) rootView.findViewById(R.id.btn_user_location);
+        userChronometer = (Chronometer) rootView.findViewById(R.id.chronometer);
 
         textViewUserName = (TextView) rootView.findViewById(R.id.txt_username);
         rootView.findViewById(R.id.containerPerfilHome).setOnClickListener(this);
@@ -224,7 +228,7 @@ public class HomeFragment extends Fragment
                 route.addPoint(currentPoint);
                 routePoints.add(location);
 
-                mMap.clear();
+                mMap.getOverlays().remove(route);
                 mMap.getOverlays().add(route);
             }
         }
@@ -410,14 +414,20 @@ public class HomeFragment extends Fragment
         mMap.setMinZoomLevel(14);
         mMap.setMaxZoomLevel(18);
         mMap.goToUserLocation(true);
+
+        userChronometer.stop();
     }
 
     private void setUpMapInGameMode() {
         mMap.clear();
+        drawMarkersSaved();
         mMap.setZoom(17);
         mMap.setMinZoomLevel(17);
         mMap.setMaxZoomLevel(18);
         mMap.goToUserLocation(true);
+
+        userChronometer.setBase(SystemClock.elapsedRealtime());
+        userChronometer.start();
     }
 
     private void drawPointsInMap(ArrayList<PowerPoint> powerPoints) {
