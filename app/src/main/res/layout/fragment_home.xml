@@ -34,4 +34,15 @@
         util:fab_colorNormal="@color/accent_red"
         util:fab_colorPressed="@color/accent_red_press"/>
 
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        util:fab_icon="@drawable/ic_friends"
+        util:fab_colorNormal="@color/accent_red"
+        util:fab_colorPressed="@color/accent_red_press"/>
+
 </RelativeLayout>

@@ -5,10 +5,16 @@ import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
+import android.view.ViewTreeObserver;
+import android.view.animation.AnticipateOvershootInterpolator;
+import android.view.animation.BounceInterpolator;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.common.ConnectionResult;
@@ -46,7 +52,8 @@ public class HomeFragment extends Fragment
 
     private GoogleApiClient mApiClient; // With this client we're gonna listen to location changes
     private FloatingActionButton mPlayButton;
-    private FloatingActionButton mMenuButton;
+    private FloatingActionButton mFriendsButton;
+    private FloatingActionButton mStopPlayButton;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -73,18 +80,31 @@ public class HomeFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
         mMap = (MapView) rootView.findViewById(R.id.game_map);
         mPlayButton = (FloatingActionButton) rootView.findViewById(R.id.btn_play);
+        mFriendsButton = (FloatingActionButton) rootView.findViewById(R.id.btn_friends);
+        mStopPlayButton = (FloatingActionButton)rootView.findViewById(R.id.btn_stop);
+
+        mFriendsButton.setOnClickListener(this);
         mPlayButton.setOnClickListener(this);
+        mStopPlayButton.setOnClickListener(this);
+
+        mStopPlayButton.getViewTreeObserver()
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                hideGameInterface();
+                mStopPlayButton.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
 
         setUpMap();
-        setUpButtons();
         setUpUserLocation();
 
         return rootView;
     }
-
-
 
     @Override
     public void onResume() {
@@ -98,11 +118,18 @@ public class HomeFragment extends Fragment
         mApiClient.disconnect();
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_play:
-                PLAY_MODE = !PLAY_MODE;
+                PLAY_MODE = true;
+                initPlayModeIfIsAvailable();
+                break;
+
+            case R.id.btn_stop:
+                PLAY_MODE = false;
+                initPlayModeIfIsAvailable();
                 break;
         }
     }
@@ -165,7 +192,7 @@ public class HomeFragment extends Fragment
     private void setUpUserLocation() {
         mMap.setUserLocationEnabled(true);
         mMap.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW);
-        mMap.setUserLocationRequiredZoom(10);
+        mMap.setUserLocationRequiredZoom(14);
     }
 
     /**
@@ -175,7 +202,52 @@ public class HomeFragment extends Fragment
         route = new PathOverlay(Color.RED, 5);
     }
 
-    private void setUpButtons() {
+    private void initPlayModeIfIsAvailable() {
+        if(PLAY_MODE){
+            hideOptionButtons();
+            showGameInterface();
+        }
+        else {
+            showOptionButtons();
+            hideGameInterface();
+        }
+    }
+
+    private void showOptionButtons() {
+        mFriendsButton.animate()
+                .translationX(0)
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
+        mPlayButton.animate()
+                .translationX(0)
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
+    }
+
+    private void hideOptionButtons() {
+        mFriendsButton.animate()
+                .translationX(-mFriendsButton.getMeasuredWidth())
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
+        mPlayButton.animate()
+                .translationX(mPlayButton.getMeasuredWidth())
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+    }
+
+    private void showGameInterface() {
+        mStopPlayButton.setVisibility(View.VISIBLE);
+
+        mStopPlayButton.animate()
+                .translationY(0)
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
+    }
+
+    private void hideGameInterface() {
+        mStopPlayButton.animate()
+                .translationY(mStopPlayButton.getWidth())
+                .setInterpolator(new AnticipateOvershootInterpolator(0.03f));
+
     }
 
 }
