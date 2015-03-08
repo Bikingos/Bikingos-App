@@ -40,7 +40,9 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
 
     private ImageView imageViewPerfil;
     private TextView textViewUserName;
-    private int progresExp = 50;
+    private int progresExp;
+    private int progressMax;
+    private int progresExpPocentaje;
     private int auxProgress;
     private IconRoundCornerProgressBar roundCornerProgressBar;
     private TextView textViewExpe;
@@ -66,29 +68,70 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
         imageViewPerfil = (ImageView) findViewById(R.id.imageViewPerfil);
         textViewUserName = (TextView) findViewById(R.id.textViewUserName);
         roundCornerProgressBar = (IconRoundCornerProgressBar) findViewById(R.id.progressBarExp);
+
+
         textViewExpe = (TextView) findViewById(R.id.textViewExpe);
 
         listViewMedails = (ListView) findViewById(R.id.listViewFriends);
 
         listViewMedails.setOnItemClickListener(this);
 
-
         obtainUserInfo();
 
     }
 
+
     private void obtainUserInfo () {
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREFERENCE_USER, MODE_PRIVATE);
+
+        obtainLevel(sharedPreferences.getInt(Constants.USER_LEVEL, 1));
 
         String urlPicturePerfil = "https://graph.facebook.com/" + sharedPreferences.getString(Constants.USER_ID,"") + "/picture?width=200&height=200";
         Picasso.with(PerfilActivity.this).load(urlPicturePerfil).placeholder(R.drawable.ic_person_white_48dp).transform(new CirclePicture()).into(imageViewPerfil);
 
         textViewUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
 
+        progresExp = sharedPreferences.getInt(Constants.USER_EXPERENCE, 50);
+        progressMax = sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 50);
+        progresExpPocentaje = 0;
+
         obtainFriends();
     }
 
+
+    private void obtainLevel(int level) {
+
+        switch (level) {
+            case 1:
+                roundCornerProgressBar.setIconImageResource(R.drawable.ic_1);
+                break;
+            case 2:
+                roundCornerProgressBar.setIconImageResource(R.drawable.ic_2);
+                break;
+            case 3:
+                roundCornerProgressBar.setIconImageResource(R.drawable.ic_3);
+                break;
+            case 4:
+                roundCornerProgressBar.setIconImageResource(R.drawable.ic_4);
+                break;
+            case 5:
+                roundCornerProgressBar.setIconImageResource(R.drawable.ic_5);
+                break;
+            case 6:
+                roundCornerProgressBar.setIconImageResource(R.drawable.ic_6);
+                break;
+            case 7:
+                roundCornerProgressBar.setIconImageResource(R.drawable.ic_7);
+                break;
+            case 8:
+                roundCornerProgressBar.setIconImageResource(R.drawable.ic_8);
+                break;
+            case 9:
+                roundCornerProgressBar.setIconImageResource(R.drawable.ic_9);
+                break;
+        }
+    }
 
 
     private void obtainFriends () {
@@ -214,9 +257,12 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
 
-            if (auxProgress <= progresExp) {
+
+            int newProgress= (int) (values[0]*(progressMax/100.0));
+
+            if (newProgress <= progresExp) {
                 roundCornerProgressBar.setProgress(values[0]);
-                textViewExpe.setText(values[0] + "/100 Exp");
+                textViewExpe.setText(newProgress + "/"+progressMax+" Exp");
             }
             medalsAdapter.setNewProgress(values[0]);
 
