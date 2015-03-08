@@ -55,7 +55,7 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
         roundCornerProgressBar = (RoundCornerProgressBar) findViewById(R.id.progressBarExp);
         textViewExpe = (TextView) findViewById(R.id.textViewExpe);
 
-        listViewMedails = (ListView) findViewById(R.id.listViewMedails);
+        listViewMedails = (ListView) findViewById(R.id.listViewFriends);
 
         List<ModelMedail> modelMedails = new ArrayList<>();
         modelMedails.add(new ModelMedail("Atleta", 50, 100, false, 1, "Kilometros Recorridos"));
@@ -122,9 +122,8 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
                     e.printStackTrace();
                 }
                 auxProgress++;
-                if (auxProgress <= progresExp) {
-                    publishProgress(auxProgress);
-                }
+
+                publishProgress(auxProgress);
             }
             return null;
         }
@@ -132,8 +131,11 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            roundCornerProgressBar.setProgress(values[0]);
-            textViewExpe.setText(values[0] + "/100 Exp");
+
+            if (auxProgress <= progresExp) {
+                roundCornerProgressBar.setProgress(values[0]);
+                textViewExpe.setText(values[0] + "/100 Exp");
+            }
             medalsAdapter.setNewProgress(values[0]);
 
         }

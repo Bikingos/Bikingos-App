@@ -28,6 +28,7 @@ import com.mapbox.mapboxsdk.overlay.PathOverlay;
 import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
 import com.mapbox.mapboxsdk.views.MapView;
 import com.render.beardedavenger.R;
+import com.render.beardedavenger.ui.FriendsActivity;
 import com.render.beardedavenger.ui.PerfilActivity;
 import com.render.beardedavenger.util.CirclePicture;
 import com.render.beardedavenger.util.Constants;
@@ -164,6 +165,12 @@ public class HomeFragment extends Fragment
 
             case R.id.containerPerfilHome:
                 launchProfileActivity();
+               break;
+
+            case R.id.btn_friends:
+                Intent intent = new Intent(getActivity(), FriendsActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 

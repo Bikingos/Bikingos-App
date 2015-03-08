@@ -3,14 +3,13 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:clickable="false"
-    android:focusable="false"
     android:layout_width="match_parent"
+    android:background="@color/transparent"
     android:paddingLeft="16dp"
     android:paddingStart="16dp"
     android:paddingRight="16dp"
     android:paddingEnd="16dp"
-    android:paddingTop="64dp"
+    android:paddingTop="16dp"
     android:paddingBottom="16dp"
     android:layout_height="wrap_content">
 
@@ -18,8 +17,6 @@
         android:id="@+id/imageViewFriend"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_alignTop="@+id/progressExp"
-        android:layout_alignBottom="@+id/progressExp"
         android:layout_centerVertical="true"
         android:src="@drawable/medalla_bronce"
         android:contentDescription="@string/app_name" />
@@ -28,10 +25,12 @@
         android:id="@+id/progressExp"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         custom:donut_text_color="@color/primary_transparente"
         custom:donut_progress="50"
+        custom:donut_finished_color="@color/accent_red"
         custom:donut_max="100"
         custom:donut_suffix_text=" km" />
 
@@ -41,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:text="Atleta"
+        android:text="Salvador"
         android:textAppearance="?android:textAppearanceMedium"
         android:textStyle="bold"
         tools:ignore="RelativeOverlap" />
@@ -50,10 +49,9 @@
         android:id="@+id/textViewNivel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textViewExp"
         android:gravity="center"
-        android:text="50/100"
-        android:layout_centerHorizontal="true"
+        android:text="50/100 Exp"
+        android:layout_centerInParent="true"
         android:textAppearance="?android:textAppearanceMedium"
         tools:ignore="RelativeOverlap" />
 
@@ -62,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Kilometro recorridos"
+        android:text="Nivel 8"
         android:layout_centerHorizontal="true"
         android:layout_alignBottom="@id/progressExp"
         android:textAppearance="?android:textAppearanceMedium"

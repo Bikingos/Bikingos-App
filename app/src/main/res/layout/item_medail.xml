@@ -14,7 +14,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageViewMedail"
+        android:id="@+id/imageViewFriend"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_centerVertical="true"
@@ -22,7 +22,7 @@
         android:contentDescription="@string/app_name" />
 
     <com.github.lzyzsd.circleprogress.DonutProgress
-        android:id="@+id/progressMadail"
+        android:id="@+id/progressExp"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerVertical="true"
@@ -34,7 +34,7 @@
         custom:donut_suffix_text=" km" />
 
     <TextView
-        android:id="@+id/textViewTitleMedail"
+        android:id="@+id/textViewUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -45,10 +45,10 @@
         tools:ignore="RelativeOverlap" />
 
     <TextView
-        android:id="@+id/textViewProgress"
+        android:id="@+id/textViewNivel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textViewDescription"
+        android:layout_above="@+id/textViewExp"
         android:gravity="center"
         android:text="50/100"
         android:layout_centerHorizontal="true"
@@ -56,13 +56,13 @@
         tools:ignore="RelativeOverlap" />
 
     <TextView
-        android:id="@+id/textViewDescription"
+        android:id="@+id/textViewExp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Kilometro recorridos"
         android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@id/progressMadail"
+        android:layout_alignBottom="@id/progressExp"
         android:textAppearance="?android:textAppearanceMedium"
         tools:ignore="RelativeOverlap" />
 

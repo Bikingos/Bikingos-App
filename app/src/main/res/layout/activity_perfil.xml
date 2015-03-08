@@ -59,7 +59,7 @@
         android:layout_centerHorizontal="true" />
 
     <ListView
-        android:id="@+id/listViewMedails"
+        android:id="@+id/listViewFriends"
         android:layout_width="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/imageViewBackground"

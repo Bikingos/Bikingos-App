@@ -22,16 +22,16 @@ public class ModelMedail {
         this.type = type;
         this.description = description;
         this.progressInitial = 0;
-        this.progressInitial = progressInitialPecentaje;
+        this.progressInitialPecentaje = 0;
     }
 
 
     public void setProgressInitialPecentaje(int progressInitialPecentaje) {
-        this.progressInitialPecentaje = progressInitialPecentaje;
 
         int newProgressInitial = (int) ((maxProgres / 100.0)*progressInitialPecentaje);
 
         if (newProgressInitial<=progress) {
+            this.progressInitialPecentaje = progressInitialPecentaje;
             progressInitial = newProgressInitial;
         }
 

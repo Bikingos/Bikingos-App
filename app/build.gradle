@@ -52,5 +52,9 @@ dependencies {
         transitive = true
     }
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+    compile 'com.koushikdutta.ion:ion:2.0.5'
+    compile 'com.google.code.gson:gson:2.3.1'
+
+
 
 }

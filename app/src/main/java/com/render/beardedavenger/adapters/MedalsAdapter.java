@@ -37,17 +37,17 @@ public class MedalsAdapter extends BaseAdapter {
 
         ModelMedail modelMedail = modelMedails.get(position);
 
-        ImageView imageViewMedail = (ImageView) view.findViewById(R.id.imageViewMedail);
-        TextView textViewTitleMedail = (TextView) view.findViewById(R.id.textViewTitleMedail);
+        ImageView imageViewMedail = (ImageView) view.findViewById(R.id.imageViewFriend);
+        TextView textViewTitleMedail = (TextView) view.findViewById(R.id.textViewUserName);
         textViewTitleMedail.setText(modelMedail.getTitleMedail());
 
-        TextView textViewProgress = (TextView) view.findViewById(R.id.textViewProgress);
+        TextView textViewProgress = (TextView) view.findViewById(R.id.textViewNivel);
         textViewProgress.setText(modelMedail.getProgressInitial() + "/" + modelMedail.getMaxProgres());
 
-        DonutProgress progressMadail = (DonutProgress) view.findViewById(R.id.progressMadail);
+        DonutProgress progressMadail = (DonutProgress) view.findViewById(R.id.progressExp);
         progressMadail.setProgress(modelMedail.getProgressInitialPecentaje());
 
-        TextView textViewDescription = (TextView) view.findViewById(R.id.textViewDescription);
+        TextView textViewDescription = (TextView) view.findViewById(R.id.textViewExp);
         textViewDescription.setText(modelMedail.getDescription());
 
         return view;

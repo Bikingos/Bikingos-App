@@ -15,4 +15,10 @@ public class Constants {
     public static final String USER_NAME = "user_name";
     public static final String USER_EMAIL = "user_email";
     public static final String USER_ID = "id";
+
+    public static final String URL_FRIENDS = "http://188.166.7.238:8888/v1/users/bob/friends";
+
+
+
+
 }
