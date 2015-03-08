@@ -1,11 +1,12 @@
-package com.render.beardedavenger;
+package com.render.beardedavenger.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.render.beardedavenger.fragments.HomeFragment;
+import com.render.beardedavenger.R;
+import com.render.beardedavenger.ui.fragments.HomeFragment;
 
 
 public class HomeActivity extends ActionBarActivity {

@@ -18,30 +18,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        util:fab_icon="@drawable/ic_play"
+        util:fab_colorNormal="@color/accent_green"
+        util:fab_colorPressed="@color/accent_green_press"/>
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_friends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_friends"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            util:fab_colorNormal="@color/white"
-            util:fab_title="Label on the right" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_medals"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            util:fab_colorNormal="@color/white"
-            util:fab_title="Another one on the right"/>
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
+        android:layout_alignParentStart="true"
+        util:fab_icon="@drawable/ic_friends"
+        util:fab_colorNormal="@color/accent_red"
+        util:fab_colorPressed="@color/accent_red_press"/>
 
 </RelativeLayout>

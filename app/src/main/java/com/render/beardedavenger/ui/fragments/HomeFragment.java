@@ -1,4 +1,4 @@
-package com.render.beardedavenger.fragments;
+package com.render.beardedavenger.ui.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -176,7 +176,6 @@ public class HomeFragment extends Fragment
     }
 
     private void setUpButtons() {
-
     }
 
 }
