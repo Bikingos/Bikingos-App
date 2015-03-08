@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingStart="16dp"
+    android:paddingRight="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="64dp"
+    android:paddingBottom="16dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageViewMedail"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignTop="@+id/progressMadail"
+        android:layout_alignBottom="@+id/progressMadail"
+        android:layout_centerVertical="true"
+        android:src="@drawable/medalla_bronce"
+        android:contentDescription="@string/app_name" />
+
+    <com.github.lzyzsd.circleprogress.DonutProgress
+        android:id="@+id/progressMadail"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        custom:donut_text_color="@color/primary_transparente"
+        custom:donut_progress="50"
+        custom:donut_max="100"
+        custom:donut_suffix_text=" km" />
+
+    <TextView
+        android:id="@+id/textViewTitleMedail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:text="Atleta"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textStyle="bold"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/textViewProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewDescription"
+        android:gravity="center"
+        android:text="50/100"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:textAppearanceMedium"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Kilometro recorridos"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@id/progressMadail"
+        android:textAppearance="?android:textAppearanceMedium"
+        tools:ignore="RelativeOverlap" />
+
+
+</RelativeLayout>

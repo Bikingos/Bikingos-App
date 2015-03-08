@@ -25,21 +25,25 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.HomeActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".ui.LoginActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
-            <intent-filter>
+
+            </activity>
+        <activity
+            android:name=".ui.PerfilActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_perfil">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.PerfilActivity"
-            android:label="@string/title_activity_perfil" >
         </activity>
         <meta-data
             android:name="io.fabric.ApiKey"
