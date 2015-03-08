@@ -12,7 +12,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_person_white_48dp"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <meta-data
@@ -41,6 +41,9 @@
             android:name=".ui.PerfilActivity"
             android:label="@string/title_activity_perfil" >
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="81bc8c5c72679991c1e8e44b39f32d4cd9ebefc9" />
     </application>
 
 </manifest>

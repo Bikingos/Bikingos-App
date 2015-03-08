@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Bearded-Avenger.iml" filepath="$PROJECT_DIR$/Bearded-Avenger.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Library-Dashed-Circular-Progress/Library-Dashed-Circular-Progress.iml" filepath="$PROJECT_DIR$/Library-Dashed-Circular-Progress/Library-Dashed-Circular-Progress.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

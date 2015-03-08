@@ -14,5 +14,6 @@
     <string name="text_hint_email">Correo Electronico</string>
     <string name="message_error">Ocurrió un error, verifica tu conexión a Internet y vuelve a intentarlo</string>
     <string name="title_activity_perfil">Perfil</string>
+    <string name="stars">Start</string>
 
 </resources>
