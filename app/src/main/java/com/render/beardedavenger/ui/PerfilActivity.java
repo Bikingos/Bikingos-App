@@ -42,7 +42,6 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
     private TextView textViewUserName;
     private int progresExp;
     private int progressMax;
-    private int progresExpPocentaje;
     private int auxProgress;
     private IconRoundCornerProgressBar roundCornerProgressBar;
     private TextView textViewExpe;
@@ -91,10 +90,16 @@ public class PerfilActivity extends ActionBarActivity implements AdapterView.OnI
         Picasso.with(PerfilActivity.this).load(urlPicturePerfil).placeholder(R.drawable.ic_person_white_48dp).transform(new CirclePicture()).into(imageViewPerfil);
 
         textViewUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
+        textViewExpe.setText("0/" + sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 100) + " Exp");
 
         progresExp = sharedPreferences.getInt(Constants.USER_EXPERENCE, 50);
         progressMax = sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 50);
-        progresExpPocentaje = 0;
+
+        if (sharedPreferences.getString(Constants.USER_TEAM, "green").equals("green")) {
+            roundCornerProgressBar.setProgressColor(getResources().getColor(R.color.accent_green));
+        } else {
+            roundCornerProgressBar.setProgressColor(getResources().getColor(R.color.accent_red));
+        }
 
         obtainFriends();
     }

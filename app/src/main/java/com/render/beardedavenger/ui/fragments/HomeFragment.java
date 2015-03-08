@@ -57,6 +57,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import io.fabric.sdk.android.services.concurrency.AsyncTask;
+
 public class HomeFragment extends Fragment
         implements GoogleApiClient.ConnectionCallbacks,
         GooglePlayServicesClient.OnConnectionFailedListener,
@@ -93,6 +95,9 @@ public class HomeFragment extends Fragment
     private TextView textViewLevel;
     private TextView textViewExp;
     private RoundCornerProgressBar roundCornerProgressBar;
+    private int auxProgress;
+    private int progressMax;
+    private int progresExp;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -159,6 +164,7 @@ public class HomeFragment extends Fragment
 
         obtainUserInfo();
 
+
         return rootView;
     }
 
@@ -169,10 +175,17 @@ public class HomeFragment extends Fragment
         textViewUserName.setText(sharedPreferences.getString(Constants.USER_NAME, ""));
 
         textViewLevel.setText("Nivel " + sharedPreferences.getInt(Constants.USER_LEVEL, 1));
-        textViewExp.setText(sharedPreferences.getInt(Constants.USER_EXPERENCE, 50) + "/" + sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 100) + " Exp");
+        textViewExp.setText("0/" + sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 100) + " Exp");
         roundCornerProgressBar.setProgress((float) (100.0 * (sharedPreferences.getInt(Constants.USER_EXPERENCE, 50) / (sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 100) * 1.0))));
 
+        if (sharedPreferences.getString(Constants.USER_TEAM, "green").equals("green")) {
+            roundCornerProgressBar.setProgressColor(getResources().getColor(R.color.accent_green));
+        } else {
+            roundCornerProgressBar.setProgressColor(getResources().getColor(R.color.accent_red));
+        }
 
+        progresExp = sharedPreferences.getInt(Constants.USER_EXPERENCE, 50);
+        progressMax = sharedPreferences.getInt(Constants.USER_MAX_EXPERENCE, 50);
     }
 
     @Override
@@ -335,6 +348,8 @@ public class HomeFragment extends Fragment
                             ArrayList<Base> bases = parseBases(new JSONArray(response));
                             drawBasesInMap(bases);
                             requestProgress.dismiss();
+                            new ProgressDataPerfil().execute();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             requestProgress.dismiss();
@@ -639,4 +654,64 @@ public class HomeFragment extends Fragment
 
         return routeInKilometers/1000;
     }
+
+
+
+
+
+
+    private class ProgressDataPerfil extends AsyncTask<Void, Integer, Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            auxProgress = 0;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+
+            while (auxProgress < 100) {
+                try {
+                    Thread.sleep(10+auxProgress);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                auxProgress++;
+
+                publishProgress(auxProgress);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+
+            int newProgress= (int) (values[0]*(progressMax/100.0));
+
+            if (newProgress <= progresExp) {
+                roundCornerProgressBar.setProgress(values[0]);
+                textViewExp.setText(newProgress + "/"+progressMax+" Exp");
+            }
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
